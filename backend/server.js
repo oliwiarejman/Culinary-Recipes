@@ -22,6 +22,10 @@ animeDB.once("open", function () {
   console.log("Połączono z Culinary-Recipes");
 });
 
+app.use("/api/recipes", animeRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/comments", reviewRoutes);
+
 app.listen(port, () => {
   console.log(`Serwer nasłuchuje na porcie ${port}`);
 });
