@@ -7,6 +7,7 @@ const recipeSchema = new mongoose.Schema({
   preparation_time: { type: Number },
   difficulty: { type: String },
   user_id: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  averageRating: { type: Number, default: 0 },
   date_added: { type: Date, default: Date.now },
 });
 
