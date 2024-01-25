@@ -1,5 +1,4 @@
 const User = require("../models/userModel");
-const Anime = require("../models/animeModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -82,7 +81,7 @@ exports.loginUser = async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    req.user = { userId: user._id, email: user.email, role: user.role };
+    req.user = { userId: user._id, email: user.email };
     console.log("User information:", req.user);
 
     const token = jwt.sign(
