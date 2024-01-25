@@ -5,6 +5,7 @@ const HomePage = ({ history }) => {
   const handleLogin = (c) => {
     window.localStorage.setItem("token", c.token);
     console.log("Użytkownik zalogowany!", c);
+    history.push("/recipes");
   };
 
   return (
