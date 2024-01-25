@@ -2,8 +2,9 @@ import React from "react";
 import LoginForm from "../components/LoginForm";
 
 const HomePage = ({ history }) => {
-  const handleLogin = () => {
-    console.log("Użytkownik zalogowany!");
+  const handleLogin = (c) => {
+    window.localStorage.setItem("token", c.token);
+    console.log("Użytkownik zalogowany!", c);
   };
 
   return (
