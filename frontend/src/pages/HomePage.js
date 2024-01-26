@@ -1,11 +1,12 @@
 import React from "react";
 import LoginForm from "../components/LoginForm";
-
-const HomePage = ({ history }) => {
+import { useNavigate } from "react-router-dom";
+const HomePage = () => {
+  const navigate = useNavigate();
   const handleLogin = (c) => {
     window.localStorage.setItem("token", c.token);
     console.log("Użytkownik zalogowany!", c);
-    history.push("/recipes");
+    navigate("/recipes");
   };
 
   return (
