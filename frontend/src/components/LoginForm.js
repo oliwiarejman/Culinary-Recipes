@@ -44,7 +44,9 @@ const LoginForm = ({ onLogin }) => {
         padding: "20px",
       }}
     >
-      <label style={{ display: "block", margin: "10px" }}>
+      <label
+        style={{ display: "block", marginBottom: "10px", marginLeft: "-16px" }}
+      >
         Email:
         <input
           type="email"
@@ -54,7 +56,9 @@ const LoginForm = ({ onLogin }) => {
           style={{ width: "100%", padding: "8px" }}
         />
       </label>
-      <label style={{ display: "block", margin: "10px" }}>
+      <label
+        style={{ display: "block", marginBottom: "20px", marginLeft: "-16px" }}
+      >
         Hasło:
         <input
           type="password"

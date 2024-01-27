@@ -40,7 +40,9 @@ const RegisterForm = () => {
         padding: "20px",
       }}
     >
-      <label style={{ display: "block", marginBottom: "10px" }}>
+      <label
+        style={{ display: "block", marginBottom: "10px", marginLeft: "-16px" }}
+      >
         Username:
         <input
           type="text"
@@ -54,7 +56,9 @@ const RegisterForm = () => {
           }}
         />
       </label>
-      <label style={{ display: "block", marginBottom: "10px" }}>
+      <label
+        style={{ display: "block", marginBottom: "10px", marginLeft: "-16px" }}
+      >
         Email:
         <input
           type="email"
@@ -69,7 +73,9 @@ const RegisterForm = () => {
         />
       </label>
 
-      <label style={{ display: "block", marginBottom: "10px" }}>
+      <label
+        style={{ display: "block", marginBottom: "10px", marginLeft: "-16px" }}
+      >
         Hasło:
         <input
           type="password"
@@ -83,7 +89,9 @@ const RegisterForm = () => {
           }}
         />
       </label>
-      <label style={{ display: "block", marginBottom: "10px" }}>
+      <label
+        style={{ display: "block", marginBottom: "10px", marginLeft: "-16px" }}
+      >
         Potwierdź hasło:
         <input
           type="password"

@@ -24,11 +24,17 @@ exports.getCommentById = async (req, res) => {
 };
 
 exports.createComment = async (req, res) => {
-  const { user_id, recipe_id, rating, comment_text } = req.body;
+  const { recipe_id, rating, comment_text } = req.body;
+  console.log({
+    user_id: req.user.userId,
+    recipe_id,
+    rating,
+    comment_text,
+  });
 
   try {
     const newComment = new Comment({
-      user_id,
+      user_id: req.user.userId,
       recipe_id,
       rating,
       comment_text,

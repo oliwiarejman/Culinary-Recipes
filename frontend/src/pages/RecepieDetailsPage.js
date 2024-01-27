@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import LoginForm from "../components/LoginForm";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import AddComment from "../components/AddComment";
 
 const RecepieDetailsPage = () => {
   let { id } = useParams();
-  const [recipe, setPhotos] = useState([]);
+  const [recipe, setRecipe] = useState([]);
   useEffect(() => {
     fetch(`http://localhost:3000/api/recipes/${id}`)
       .then((res) => {
@@ -16,10 +17,18 @@ const RecepieDetailsPage = () => {
           .then((r) => r.json())
           .then((d) => {
             data["comments"] = d;
-            setPhotos(data);
+            setRecipe(data);
           });
       });
   }, []);
+
+  const handleCommentAdded = (newComment) => {
+    setRecipe((prevRecipe) => ({
+      ...prevRecipe,
+      comments: [...prevRecipe.comments, newComment],
+    }));
+  };
+
   return (
     <div>
       {JSON.stringify(recipe)}
@@ -30,16 +39,7 @@ const RecepieDetailsPage = () => {
       <h3>Poziom trudności: {recipe.difficulty}</h3>
       <h3>Ocena: {recipe.averageRating}</h3>
 
-      <h2>Komentarze:</h2>
-      <hr />
-      {recipe.comments &&
-        recipe.comments.map((comment) => (
-          <div> Komentarz: {JSON.stringify(comment)} </div>
-        ))}
-
-      {recipe.comments && recipe.comments.length === 0 && (
-        <div>Brak komentarzy</div>
-      )}
+      <AddComment recipeId={recipe.id} onCommentAdded={handleCommentAdded} />
     </div>
   );
 };
