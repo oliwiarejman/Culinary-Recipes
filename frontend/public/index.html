@@ -25,6 +25,29 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>React App</title>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <style>
+      body {
+        flex-direction: column;
+      }
+      .chat-box {
+        background-color: aliceblue;
+        margin-top: 4rem;
+        display: block;
+        width: 100%;
+        min-height: 100px;
+      }
+      .chat-messages {
+        min-height: 20px;
+        padding: 1rem 2rem;
+        max-height: 50px;
+        overflow: scroll;
+        margin-bottom: 1rem;
+      }
+      .single-message {
+        margin: 0.25rem;
+      }
+    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -39,5 +62,40 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <div class="chat-box">
+      <div class="chat-messages" id="chat-messages">
+      </div>
+      <form action="" id="io-form">
+        Wiadomosc: <input id="io-message"/>
+        Usename: <input id="io-username"/>
+        <button type="submit">Wyslij</button>
+      </form>
+    </div>
+    <script>
+      let socket = io("ws://localhost:3000");
+      let messages = document.getElementById("chat-messages")
+      socket.on('chat message', (msg) => {
+        let jsonMessage = JSON.parse(msg);
+        let m = document.createElement("div");
+        m.className = "single-message"
+        m.innerHTML = `${jsonMessage.username}: ${jsonMessage.message}`;
+        messages.appendChild(m);
+        console.log('message: ' + jsonMessage);
+      });
+
+      let form = document.getElementById("io-form");
+      let messageField = document.getElementById("io-message")
+      let usernameField = document.getElementById("io-username")
+
+      form.addEventListener("submit", event => {
+        event.preventDefault();
+        let message = messageField.value;
+        let username = usernameField.value;
+        if(message && username) {
+          socket.emit("chat message", JSON.stringify({"message": message, "username": username}))
+          message.value = "";
+        }
+      });
+    </script>
   </body>
 </html>

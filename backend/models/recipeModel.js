@@ -4,7 +4,7 @@ const recipeSchema = new mongoose.Schema({
   title: { type: String, required: true },
   ingredients: { type: String, required: true },
   preparation_steps: { type: String, required: true },
-  preparation_time: { type: Number },
+  preparation_time: { type: String, required: true },
   difficulty: { type: String },
   user_id: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   averageRating: { type: Number, default: 0 },
