@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const LoginForm = ({ onLogin }) => {
   const [credentials, setCredentials] = useState({
@@ -36,27 +37,52 @@ const LoginForm = ({ onLogin }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
+    <form
+      onSubmit={handleSubmit}
+      style={{
+        width: "300px",
+        padding: "20px",
+      }}
+    >
+      <label style={{ display: "block", margin: "10px" }}>
         Email:
         <input
           type="email"
           name="email"
           value={credentials.email}
           onChange={handleChange}
+          style={{ width: "100%", padding: "8px" }}
         />
       </label>
-      <label>
+      <label style={{ display: "block", margin: "10px" }}>
         Hasło:
         <input
           type="password"
           name="password"
           value={credentials.password}
           onChange={handleChange}
+          style={{ width: "100%", padding: "8px" }}
         />
       </label>
-      <button type="submit">Zaloguj</button>
-      {error && <div style={{ color: "red" }}>{error}</div>}
+      <button
+        type="submit"
+        style={{
+          width: "100%",
+          padding: "10px",
+          background: "#4CAF50",
+          color: "white",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+        }}
+      >
+        Zaloguj
+      </button>
+      {error && <div style={{ color: "red", marginTop: "10px" }}>{error}</div>}
+
+      <div style={{ marginTop: "10px", textAlign: "center" }}>
+        Nie masz jeszcze konta? <Link to="/register">Zarejestruj się</Link>
+      </div>
     </form>
   );
 };

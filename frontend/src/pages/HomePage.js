@@ -10,8 +10,14 @@ const HomePage = () => {
   };
 
   return (
-    <div>
-      <h1>Witaj na stronie głównej</h1>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh",
+      }}
+    >
       <LoginForm onLogin={handleLogin} />
     </div>
   );
