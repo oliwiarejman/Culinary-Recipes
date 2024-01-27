@@ -109,8 +109,19 @@ const RecepieDetailsPage = () => {
       <hr />
       {recipe.comments &&
         recipe.comments.map((comment) => (
-          <div key={comment._id}>
-            Komentarz: {comment.comment_text} | Ocena: {comment.rating}
+          <div
+            key={comment._id}
+            style={{
+              marginBottom: "10px",
+              padding: "10px",
+              border: "1px solid #ddd",
+              borderRadius: "8px",
+              backgroundColor: "#56638a",
+            }}
+          >
+            <p>
+              Komentarz: {comment.comment_text} | Ocena: {comment.rating}
+            </p>
             <button onClick={() => handleDeleteComment(comment._id)}>
               Usuń
             </button>

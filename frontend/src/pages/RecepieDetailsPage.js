@@ -3,8 +3,10 @@ import LoginForm from "../components/LoginForm";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import AddComment from "../components/AddComment";
+import { useNavigate } from "react-router-dom";
 
 const RecepieDetailsPage = () => {
+  const navigate = useNavigate();
   let { id } = useParams();
   const [recipe, setRecipe] = useState([]);
   useEffect(() => {
@@ -29,8 +31,30 @@ const RecepieDetailsPage = () => {
     }));
   };
 
+  const handleDeleteRecipe = async () => {
+    try {
+      const token = window.localStorage.getItem("token");
+      const headers = { Authorization: `Bearer ${token}` };
+
+      const response = await axios.delete(
+        `http://localhost:3000/api/recipes/${id}`,
+        { headers: headers }
+      );
+
+      if (response.status === 200) {
+        navigate("/recipes");
+      }
+    } catch (error) {
+      console.error("Błąd usuwania przepisu:", error.message);
+    }
+  };
+
   return (
-    <div>
+    <div
+      style={{
+        margin: "2rem",
+      }}
+    >
       {JSON.stringify(recipe)}
       <h1>Tytuł: {recipe.title}</h1>
       <h3>Składniki: {recipe.ingredients}</h3>
@@ -38,7 +62,9 @@ const RecepieDetailsPage = () => {
       <h3>Czas przygotowania: {recipe.preparation_time}</h3>
       <h3>Poziom trudności: {recipe.difficulty}</h3>
       <h3>Ocena: {recipe.averageRating}</h3>
-
+      <button onClick={handleDeleteRecipe} style={{ marginTop: "20px" }}>
+        Usuń przepis
+      </button>
       <AddComment recipeId={recipe.id} onCommentAdded={handleCommentAdded} />
     </div>
   );
