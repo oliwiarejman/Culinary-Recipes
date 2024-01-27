@@ -2,24 +2,31 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
+
+
+
 const mqtt = require("mqtt");
 const http = require("http");
 const socketIo = require("socket.io");
+
+
+
 
 const recipeRoutes = require("./routes/recipeRoutes");
 const userRoutes = require("./routes/userRoutes");
 const commentRoutes = require("./routes/commentRoutes");
 
+
 const mqttClient = mqtt.connect("mqtt://localhost");
 const app = express();
 const server = http.createServer(app);
-const io = socketIo(server, {
+const io = socketIo(server,{
   cors: {
     origin: "http://localhost:3001",
-    methods: ["GET", "POST"],
-  },
+    methods: ["GET", "POST"]
+  }
 });
-let socketClients = {};
+let socketClients = {}
 mqttClient.subscribe("chat");
 mqttClient.on("message", (topic, message) => {
   if (topic === "chat") {
@@ -31,8 +38,8 @@ io.on("connection", (socket) => {
   console.log("Socket connected:", socket.id);
   socket.on("chat message", (message) => {
     let jsonMessage = JSON.parse(message);
-    jsonMessage["creator_socket_id"] = socket.id;
-    console.log(jsonMessage);
+    jsonMessage['creator_socket_id'] = socket.id
+    console.log(jsonMessage)
     mqttClient.publish("chat", JSON.stringify(jsonMessage));
   });
   socket.on("disconnect", () => {
@@ -40,12 +47,13 @@ io.on("connection", (socket) => {
   });
 });
 
+
 const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect("mongodb://localhost:27017/Culinary-Recipes", {
+mongoose.connect("mongodb://root:example@localhost:27017/Culinary-Recipes?authSource=admin", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

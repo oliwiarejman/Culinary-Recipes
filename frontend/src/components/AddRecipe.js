@@ -114,6 +114,7 @@ const AddRecipe = () => {
             border: "none",
             borderRadius: "5px",
             cursor: "pointer",
+            marginBottom: "2rem"
           }}
         >
           Dodaj przepis

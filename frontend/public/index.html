@@ -1,101 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta
+    name="description"
+    content="Web site created using create-react-app"
+  />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <title>Przepisy</title>
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+    }
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
-    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
-    <style>
-      body {
-        flex-direction: column;
-      }
-      .chat-box {
-        background-color: aliceblue;
-        margin-top: 4rem;
-        display: block;
-        width: 100%;
-        min-height: 100px;
-      }
-      .chat-messages {
-        min-height: 20px;
-        padding: 1rem 2rem;
-        max-height: 50px;
-        overflow: scroll;
-        margin-bottom: 1rem;
-      }
-      .single-message {
-        margin: 0.25rem;
-      }
-    </style>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+    header {
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      font-size: 4rem;
+      background-color: #386fa4;
+      width: 100%;
+      color: white;
+      text-align: center;
+    }
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+    #root {
+      flex: 1;
+    }
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-    <div class="chat-box">
-      <div class="chat-messages" id="chat-messages">
-      </div>
-      <form action="" id="io-form">
-        Wiadomosc: <input id="io-message"/>
-        Usename: <input id="io-username"/>
-        <button type="submit">Wyslij</button>
-      </form>
-    </div>
-    <script>
+    .chat-box {
+      display: none;
+      background-color: aliceblue;
+      margin-top: auto;
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      width: 300px;
+    }
+
+    .chat-messages {
+      min-height: 20px;
+      padding: 1rem 2rem;
+      max-height: 200px;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+    }
+
+    .single-message {
+      margin: 0.25rem;
+    }
+
+    #io-form {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+    }
+
+    #io-message,
+    #io-username {
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <header><div class="tytul">Forum Przepisowe</div></header>
+  <div id="root"></div>
+  <div class="chat-box" id="chat-box">
+    <div class="chat-messages" id="chat-messages"></div>
+    <form action="" id="io-form">
+      Wiadomość: <input id="io-message"/>
+      Nazwa użytkownika: <input id="io-username"/>
+      <button type="submit">Wyślij</button>
+    </form>
+  </div>
+  <script>
+  
+    if (window.location.pathname  !== "/" && window.location.pathname !== "/register") {
       let socket = io("ws://localhost:3000");
-      let messages = document.getElementById("chat-messages")
+      let messages = document.getElementById("chat-messages");
       socket.on('chat message', (msg) => {
         let jsonMessage = JSON.parse(msg);
         let m = document.createElement("div");
-        m.className = "single-message"
+        m.className = "single-message";
         m.innerHTML = `${jsonMessage.username}: ${jsonMessage.message}`;
         messages.appendChild(m);
-        console.log('message: ' + jsonMessage);
+        console.log('Wiadomość: ' + jsonMessage);
       });
 
       let form = document.getElementById("io-form");
-      let messageField = document.getElementById("io-message")
-      let usernameField = document.getElementById("io-username")
+      let messageField = document.getElementById("io-message");
+      let usernameField = document.getElementById("io-username");
 
       form.addEventListener("submit", event => {
         event.preventDefault();
         let message = messageField.value;
         let username = usernameField.value;
         if(message && username) {
-          socket.emit("chat message", JSON.stringify({"message": message, "username": username}))
+          socket.emit("chat message", JSON.stringify({"message": message, "username": username}));
           message.value = "";
         }
       });
-    </script>
-  </body>
+
+      document.getElementById("chat-box").style.display = "block";
+    }
+  </script>
+</body>
 </html>
