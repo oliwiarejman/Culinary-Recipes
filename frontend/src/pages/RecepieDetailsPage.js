@@ -1,11 +1,9 @@
-
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import AddComment from "../components/AddComment";
 
-
-const RecepieDetailsPage = () => {
+const RecipeDetailsPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [recipe, setRecipe] = useState([]);
@@ -49,23 +47,83 @@ const RecepieDetailsPage = () => {
   };
 
   return (
-    <div style={{ margin: "2rem" }}>
-      <h1>Tytuł: {recipe.title}</h1>
-      <h3>Składniki: {recipe.ingredients}</h3>
-      <h3>Kroki: {recipe.preparation_steps}</h3>
-      <h3>Czas przygotowania: {recipe.preparation_time}</h3>
-      <h3>Poziom trudności: {recipe.difficulty}</h3>
-      <h3>Ocena: {recipe.averageRating}</h3>
-      <Link to={`/recipes/${id}/edit`}>
-        <button>Edytuj przepis</button>
-      </Link>
-      <button onClick={handleDeleteRecipe} style={{ marginTop: "20px" }}>
-        Usuń przepis
-      </button>
-      <AddComment recipeId={recipe.id} onCommentAdded={handleCommentAdded} />
-
+    <div
+      style={{
+        margin: "2rem",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        textAlign: "center",
+      }}
+    >
+      <h1 style={{ fontSize: "24px", marginBottom: "16px" }}>
+        {recipe.title}
+      </h1>
+      <div style={{ marginBottom: "16px" }}>
+        <h3>Składniki:</h3>
+        <p>{recipe.ingredients}</p>
+      </div>
+      <div style={{ marginBottom: "16px" }}>
+        <h3>Kroki:</h3>
+        <p>{recipe.preparation_steps}</p>
+      </div>
+      <div style={{ marginBottom: "16px" }}>
+        <h3>Czas przygotowania:</h3>
+        <p>{recipe.preparation_time}</p>
+      </div>
+      <div style={{ marginBottom: "16px" }}>
+        <h3>Poziom trudności:</h3>
+        <p>{recipe.difficulty}</p>
+      </div>
+      <div style={{ marginBottom: "16px" }}>
+        <h3>Ocena:</h3>
+        <p>{recipe.averageRating}</p>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          gap: "10px",
+          marginBottom: "16px",
+        }}
+      >
+        <Link to={`/recipes/${id}/edit`}>
+          <button
+            style={{
+              padding: "10px",
+              background: "#4CAF50",
+              color: "white",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+            }}
+          >
+            Edytuj przepis
+          </button>
+        </Link>
+        <button
+          onClick={handleDeleteRecipe}
+          style={{
+            padding: "10px",
+            background: "#f44336",
+            color: "white",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+          }}
+        >
+          Usuń przepis
+        </button>
+      </div>
+      <AddComment
+        recipeId={recipe.id}
+        onCommentAdded={handleCommentAdded}
+        style={{
+          marginTop: "20px",
+          width: "100%",
+        }}
+      />
     </div>
   );
 };
 
-export default RecepieDetailsPage;
+export default RecipeDetailsPage;

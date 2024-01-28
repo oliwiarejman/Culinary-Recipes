@@ -7,7 +7,17 @@ const RecipesPage = () => {
     <div>
       <h1>Recipes Page</h1>
       <Link to="/add-recipe">
-        <button>Dodaj nowy przepis</button>
+        <button
+          style={{
+            padding: "10px",
+            background: "#4CAF50",
+            color: "white",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+            marginLeft: "1.8rem"
+          }}
+        >Dodaj nowy przepis</button>
       </Link>
       <RecipeList />
     </div>

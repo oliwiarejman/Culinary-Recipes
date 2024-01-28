@@ -102,7 +102,16 @@ const RecepieDetailsPage = () => {
             ))}
           </select>
         </label>
-        <button type="submit">Dodaj</button>
+        <button
+          style={{
+            padding: "10px",
+            background: "#4CAF50",
+            color: "white",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+          }} 
+        type="submit">Dodaj</button>
       </form>
 
       <h2>Komentarze:</h2>
@@ -123,7 +132,16 @@ const RecepieDetailsPage = () => {
             <p>
               Komentarz: {comment.comment_text} | Ocena: {comment.rating}
             </p>
-            <button onClick={() => handleDeleteComment(comment._id)}>
+            <button 
+                      style={{
+                        padding: "10px",
+                        background: "#f44336",
+                        color: "white",
+                        border: "none",
+                        borderRadius: "5px",
+                        cursor: "pointer",
+                      }}
+            onClick={() => handleDeleteComment(comment._id)}>
               Usuń
             </button>
           </div>

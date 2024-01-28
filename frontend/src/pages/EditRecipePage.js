@@ -58,7 +58,7 @@ const EditRecipePage = () => {
             name="title"
             value={recipe.title}
             onChange={handleInputChange}
-            style={{ width: "100%", padding: "8px" }}
+            style={{ width: "100%", padding: "8px",marginLeft: "-10px" }}
           />
         </div>
 
@@ -68,7 +68,7 @@ const EditRecipePage = () => {
             name="ingredients"
             value={recipe.ingredients}
             onChange={handleInputChange}
-            style={{ width: "100%", padding: "8px" }}
+            style={{ width: "100%", padding: "8px" ,marginLeft: "-10px"}}
           />
         </div>
 
@@ -78,7 +78,7 @@ const EditRecipePage = () => {
             name="preparation_steps"
             value={recipe.preparation_steps}
             onChange={handleInputChange}
-            style={{ width: "100%", padding: "8px" }}
+            style={{ width: "100%", padding: "8px",marginLeft: "-10px" }}
           />
         </div>
 
@@ -89,7 +89,7 @@ const EditRecipePage = () => {
             name="preparation_time"
             value={recipe.preparation_time}
             onChange={handleInputChange}
-            style={{ width: "100%", padding: "8px" }}
+            style={{ width: "100%", padding: "8px",marginLeft: "-10px" }}
           />
         </div>
 
@@ -99,7 +99,7 @@ const EditRecipePage = () => {
             name="difficulty"
             value={recipe.difficulty}
             onChange={handleInputChange}
-            style={{ width: "100%", padding: "8px" }}
+            style={{ width: "100%", padding: "8px"}}
           >
             <option value="">Wybierz poziom trudności</option>
             <option value="łatwy">Łatwy</option>
