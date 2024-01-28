@@ -95,7 +95,7 @@ const RecepieDetailsPage = () => {
             value={newRating}
             onChange={(e) => setNewRating(parseInt(e.target.value, 10))}
           >
-            {[1, 2, 3, 4, 5].map((rating) => (
+            {[0, 1, 2, 3, 4, 5].map((rating) => (
               <option key={rating} value={rating}>
                 {rating}
               </option>
@@ -116,7 +116,8 @@ const RecepieDetailsPage = () => {
               padding: "10px",
               border: "1px solid #ddd",
               borderRadius: "8px",
-              backgroundColor: "#56638a",
+              backgroundColor: "#386fa4",
+              color: "white"
             }}
           >
             <p>

@@ -5,6 +5,7 @@ import RecipesPage from "./pages/RecipesPage";
 import RecepieDetailsPage from "./pages/RecepieDetailsPage";
 import RegisterPage from "./pages/RegisterPage";
 import AddRecipe from "./components/AddRecipe";
+import EditRecipePage from "./pages/EditRecipePage";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
         <Route path="/recipes" element={<RecipesPage />} />
         <Route path="/add-recipe" element={<AddRecipe />} />
         <Route path="/recipes/:id" element={<RecepieDetailsPage />} />
+        <Route path="/recipes/:id/edit" element={<EditRecipePage />} />
       </Routes>
     </Router>
   );
